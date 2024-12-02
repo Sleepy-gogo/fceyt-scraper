@@ -1,9 +1,11 @@
-
 export function parseIntoNumber(str: string) {
-  return str == "-" || str == "" || isNaN(Number(str)) || str == "*" ? null : Number.parseInt(str);
+  const num = Number(str);
+  return str.trim() === "" || isNaN(num) || str === "-" || str === "*" ? null : num;
 }
 
 export function parseIntoArray(str: string) {
-  return str == "-" || str == "" || str == "--" || str == "(**)" ? null : str.split('-').map(Number);
+  if (!str || str.match(/^[-*()]+$/)) return null;
+  const numbers = str.split('-').map(Number);
+  return numbers.some(isNaN) ? null : numbers;
 }
 
