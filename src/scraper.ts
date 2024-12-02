@@ -1,5 +1,4 @@
 import * as cheerio from "cheerio";
-import axios from 'axios';
 import { parseIntoArray, parseIntoNumber } from './utils';
 
 
@@ -12,15 +11,13 @@ export interface Materia {
   aprobadas: number[] | null;
 }
 
-export default async function scrapeData(url: string) {
-  const response = await axios.get(url);
-  const html = response.data;
+export default async function scrapeData(html: string) {
   const $ = cheerio.load(html);
 
   const data: Materia[] = [];
   const materiasAgregadas = new Set();
 
-  $('table:has(a[target="_blank"]), table tr:has(td:nth-child(5))').each((indexTabla, tabla) => {
+  $('table:has(a[target="_blank"]), table:has(tr:has(td:nth-child(5)))').each((indexTabla, tabla) => {
     $(tabla).find('tr').each((indexFila, fila) => {
       const columnas = $(fila).find('td');
       const numColumnas = columnas.length;
