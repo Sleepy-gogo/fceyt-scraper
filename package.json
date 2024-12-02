@@ -2,6 +2,11 @@
   "name": "unse-scraper",
   "module": "index.ts",
   "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "bun index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },
